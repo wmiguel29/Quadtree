@@ -6,39 +6,58 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Imagen {
-
-	private int height;
-	private int width;
+	private int altura;
+	private int ancho;
+	private Color[][] colores;
 	
-	private Color pixels[][]; 
-
-	public Imagen(File file) {
-		pixels = convertImageToArray(file);
+	public Imagen(String direccion) throws IOException {
+		File file =new File(direccion);
+		colores=convertirImagenMatriz(file);
+		
 	}
 	
-	
-	private Color[][] convertImageToArray(File file) {
+	private Color[][] convertirImagenMatriz(File file) throws IOException{
+		BufferedImage image=ImageIO.read(file);
+		altura=image.getHeight();
+		ancho=image.getWidth();
 		
-		try {
-			
-			//cria um buffer com o conteÃºdo da imagem
-			BufferedImage buffer = ImageIO.read(file);
-			
-			//dimensÃµes da imagem
-			height = buffer.getHeight();
-			width = buffer.getWidth();
-			
-			pixels = new Color[height][width];
-			
-			for(int i = 0; i < height; ++i) {
-				for(int j = 0; j < width; ++j) {
-					pixels[i][j] = new Color(buffer.getRGB(j, i), true);
-				}
+		colores=new Color[altura][ancho];
+		
+		for (int i = 0; i < colores.length; i++) {
+			for (int j = 0; j < colores[0].length; j++) {
+				colores[i][j]=new Color(image.getRGB(j, i),true);
 			}
-			
-		} catch (IOException e) { e.printStackTrace(); }
+		}
 		
-		return pixels;
+		return colores;
 		
 	}
+
+	public int getAltura() {
+		return altura;
+	}
+
+	public void setAltura(int altura) {
+		this.altura = altura;
+	}
+
+	public int getAncho() {
+		return ancho;
+	}
+
+	public void setAncho(int ancho) {
+		this.ancho = ancho;
+	}
+
+	public Color[][] getColores() {
+		return colores;
+	}
+
+	public void setColores(Color[][] colores) {
+		this.colores = colores;
+	}
+	
+	
+	
+
 }
