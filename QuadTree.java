@@ -242,3 +242,4 @@ private Color getNodeColor(Color image[][], int i, int j, int h, int w) {
 	return (precisionColor >= precision) ? new Color(r, g, b, a) : null;
 	
 }
+}
